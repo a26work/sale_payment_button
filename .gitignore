@@ -9,7 +9,6 @@ __pycache__/
 *.swp
 *.un~
 *.xml~
-*.csv~
 *.json~
 
 # IDE/editor folders

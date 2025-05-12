@@ -19,7 +19,8 @@ This module enhances Odoo 16 by adding payment smart buttons to both sales order
 This module extends the following models:
 - `sale.order`: Adds payment count computation and action to view payments
 - `account.move`: Adds payment count computation and action to view payments
-You most add the user to (Show Accounting Features - Readonly) Group
+
+- You most add the user to (Show Accounting Features - Readonly) Group
 
 ## Requirements
 - Odoo 16.0
