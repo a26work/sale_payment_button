@@ -5,6 +5,18 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     payment_count = fields.Integer(string='Payment Count', compute='_compute_payment_count')
+    invoice_payment_state_stored = fields.Selection(
+        selection=[
+            ('not_paid', 'Not Paid'),
+            ('in_payment', 'In Payment'),
+            ('paid', 'Paid'),
+            ('partial', 'Partially Paid'),
+            ('reversed', 'Reversed'),
+        ],
+        string='Invoice Payment State (Stored)',
+        compute='_compute_invoice_payment_state_stored',
+        store=True,
+    )
 
     @api.depends('invoice_ids', 'invoice_ids.payment_state')
     def _compute_payment_count(self):
@@ -98,3 +110,23 @@ class SaleOrder(models.Model):
             action['res_id'] = payment_ids[0]
 
         return action
+
+    @api.depends('invoice_ids.payment_state')
+    def _compute_invoice_payment_state_stored(self):
+        for order in self:
+            if order.invoice_ids:
+                payment_states = order.invoice_ids.mapped('payment_state')
+                if 'not_paid' in payment_states:
+                    order.invoice_payment_state_stored = 'not_paid'
+                elif 'partial' in payment_states:
+                    order.invoice_payment_state_stored = 'partial'
+                elif 'in_payment' in payment_states:
+                    order.invoice_payment_state_stored = 'in_payment'
+                elif 'reversed' in payment_states:
+                    order.invoice_payment_state_stored = 'reversed'
+                elif all(state == 'paid' for state in payment_states):
+                    order.invoice_payment_state_stored = 'paid'
+                else:
+                    order.invoice_payment_state_stored = 'not_paid'
+            else:
+                order.invoice_payment_state_stored = 'not_paid'

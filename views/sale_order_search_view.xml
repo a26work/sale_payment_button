@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_filter_custom" model="ir.ui.view">
+        <field name="name">sale.order.filter.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Invoice Status" name="group_invoice_status" context="{'group_by':'invoice_status'}"/>
+                <filter string="Invoice Payment State" name="group_invoice_payment_state" context="{'group_by':'invoice_payment_state_stored'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
