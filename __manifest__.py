@@ -10,12 +10,13 @@
     'author': '',
     'website': '',
     'depends': [
+        'base',
         'sale_management',
+        'sale',
         'account',
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'security/security_rules.xml',
+        'security/security.xml',
         'views/sale_order_views.xml',
         'views/account_move_views.xml',
         'views/sale_order_search_view.xml',
