@@ -20,7 +20,6 @@ __pycache__/
 # Test and dump data
 /test_data/
 *.json
-*.csv
 *.xlsx
 *.xls
 
