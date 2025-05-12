@@ -16,7 +16,6 @@
         'account',
     ],
     'data': [
-        'security/security.xml',
         'views/sale_order_views.xml',
         'views/account_move_views.xml',
         'views/sale_order_search_view.xml',
